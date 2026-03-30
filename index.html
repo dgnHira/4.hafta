@@ -3,23 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hiranur Doğan - Portfolyo</title>
-</head>
-<body>
-    <h1>Hiranur Doğan</h1>
-    
-    <img src="img/profil.jpg" alt="Profil Fotoğrafı" width="150">
+    <title>Hiranur Doğan - Proje Portalı</title>
+    <style>
+        body {
+            background-color: #0b0118; /* Koyu mor/siyah arka plan */
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
 
-    <hr>
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Yuvarlak resim */
+            border: 4px solid #7b61ff; /* Mor çerçeve */
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(123, 97, 255, 0.5); /* Işıltı efekti */
+        }
 
-    <h3>Projelerim ve Çalışmalarım</h3>
-    <ul>
-        <li><a href="gezi.rehberi.html">Görev 2: Gezi Rehberi</a></li>
-        <li><a href="data.csv">Görev 7: Veri Seti (CSV)</a></li>
-        <li><a href="scatter_plot.png">Görev 7: Grafik (Scatter Plot)</a></li>
-        <li><a href="sicaklik_hist.png">Görev 7: Sıcaklık Grafiği</a></li>
-        <li><a href="sut_miktari_hist.png">Görev 7: Süt Miktarı Grafiği</a></li>
-    </ul>
+        h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            background: linear-gradient(90deg, #a0feff, #e33fa1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
 
-</body>
-</html>
+        .subtitle {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .btn-main {
+            background: linear-gradient(90deg, #7b61ff, #e33fa1);
+            color: white;
+            padding: 12px 35px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 35px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(227, 63, 161, 0.6);
+        }
+
+        .links-container {
+            display: flex;
+            gap: 15px;
+        }
+
+        .link-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size:
