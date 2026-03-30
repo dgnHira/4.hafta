@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Türkiye Gezi Rehberi - Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --primary: #F05A28;
+    --dark: #0F172A;
+    --light: #F8FAFC;
+    --border: #E2E8F0;
+    --text: #1E293B;
+    --text-muted: #64748B;
+    --shadow: 0 4px 20px rgba(0,0,0,0.06);
+    --radius: 16px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--light);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+/* Hero */
+.hero-section {
+    background: var(--dark);
+    padding: 60px 2rem;
+    text-align: center;
+    color: white;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+.logo { font-size: 1.5rem; font-weight: 800; margin-bottom: 2rem; }
+.logo span { color: var(--primary); }
+
+.hero-section h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; line-height: 1.2; }
+
+.search-form { max-width: 400px; margin: 0 auto 2rem; }
+#citySearch {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    border: none;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.city-pills {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-height: 140px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.city-pill {
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.city-pill.active { background: var(--primary); color: white; }
+
+/* Nav */
+.category-filters { margin-top: -25px; margin-bottom: 40px; }
+.filter-group {
+    background: white;
+    padding: 8px;
+    border-radius: 100px;
+    display: flex;
+    gap: 5px;
+    width: fit-content;
+    margin: 0 auto;
+    box-shadow: var(--shadow);
+}
+.cat-tab {
+    border: none;
+    background: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 100px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+.cat-tab.active { background: var(--dark); color: white; }
+
+/* Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.section-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; padding-left: 5px; }
+
+/* Card */
+.premium-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.premium-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+
+.type-tag { font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-bottom: 0.5rem; }
+.card-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; }
+.card-meta { margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 0.85rem; }
+.card-rating { color: #F59E0B; font-weight: 800; }
+
+.group-header {
+    grid-column: 1 / -1;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--dark);
+    opacity: 0.8;
+    border-left: 4px solid var(--primary);
+    padding-left: 10px;
+}
+
+.empty-msg { color: var(--text-muted); font-style: italic; grid-column: 1 / -1; padding: 20px; }
+
+.main-footer { text-align: center; padding: 40px; color: var(--text-muted); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <div class="hero-section">
+        <div class="logo"><span>Gezi</span>Rehberi</div>
+        <h1>Türkiye'yi Keşfet</h1>
+        <div class="search-form">
+            <input type="text" id="citySearch" placeholder="Hangi şehri keşfetmek istersiniz?">
+        </div>
+        <div class="city-pills" id="citySelector"></div>
+    </div>
+
+    <div class="container">
+        <div class="category-filters">
+            <div class="filter-group">
+                <button class="cat-tab active" data-category="all">Tümü</button>
+                <button class="cat-tab" data-category="Restoran">Gastronomi</button>
+                <button class="cat-tab" data-category="Müze">Müzeler</button>
+                <button class="cat-tab" data-category="Tarihi Yer">Tarihi Yerler</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">Popüler Öneriler</h2>
+        <div class="cards-grid" id="recommendedGrid"></div>
+
+        <h2 class="section-title">Diğer Keşifler</h2>
+        <div class="cards-grid" id="othersGrid"></div>
+    </div>
+
+    <footer class="main-footer">
+        Türkiye Gezi Rehberi &copy; 2026
+    </footer>
+
+    <script>
+/**
+ * TÜRKİYE GEZİ REHBERİ - ULTRA-MASSIVE DISCOVERY EDITION
+ */
+
+class Mekan {
+    #ad; #puan; 
+    constructor(ad, puan, tur) { this.#ad = ad; this.#puan = puan; this.tur = tur; }
+    getAd() { return this.#ad; } getPuan() { return this.#puan; }
+
+    getHTML() {
+        return `
+            <div class="premium-card">
+                <div class="card-top">
+                    <span class="type-tag">${this.tur}</span>
+                    <h3 class="card-title">${this.#ad}</h3>
+                </div>
+                <div class="card-meta">
+                    <div class="meta-label">${this.getFooterLabel()}: <strong>${this.getFooterValue()}</strong></div>
+                    <div class="card-rating">★ ${this.#puan}</div>
+                </div>
+            </div>
+        `;
+    }
+    getFooterLabel() { return "Detay"; }
+    getFooterValue() { return "Keşfet"; }
+}
+
+class TarihiYer extends Mekan {
+    constructor(ad, puan, donem) { super(ad, puan, "Antik / Tarihi"); this.donem = donem; }
+    getFooterLabel() { return "Dönem"; } getFooterValue() { return this.donem; }
+}
+
+class Muze extends Mekan {
+    constructor(ad, puan, ucret) { super(ad, puan, "Müze & Sanat"); this.ucret = ucret; }
+    getFooterLabel() { return "Giriş"; } getFooterValue() { return this.ucret === 0 ? "Ücretsiz" : `${this.ucret} TL`; }
+}
+
+class Restoran extends Mekan {
+    constructor(ad, puan, mutfak) { super(ad, puan, "Gastronomi"); this.mutfak = mutfak; }
+    getFooterLabel() { return "Mutfak"; } getFooterValue() { return this.mutfak; }
+}
+
+const CITIES_LIST = [
+    "Adana", "Adıyaman", "Afyonkarahisar", "Ağrı", "Aksaray", "Amasya", "Ankara", "Antalya", "Ardahan", "Artvin",
+    "Aydın", "Balıkesir", "Bartın", "Batman", "Bayburt", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur",
+    "Bursa", "Çanakkale", "Çankırı", "Çorum", "Denizli", "Diyarbakır", "Düzce", "Edirne", "Elazığ", "Erzincan",
+    "Erzurum", "Eskişehir", "Gaziantep", "Giresun", "Gümüşhane", "Hakkari", "Hatay", "Iğdır", "Isparta", "İstanbul",
+    "İzmir", "Kahramanmaraş", "Karabük", "Karaman", "Kars", "Kastamonu", "Kayseri", "Kırıkkale", "Kırklareli", "Kırşehir",
+    "Kilis", "Kocaeli", "Konya", "Kütahya", "Malatya", "Manisa", "Mardin", "Mersin", "Muğla", "Muş",
+    "Nevşehir", "Niğde", "Ordu", "Osmaniye", "Rize", "Sakarya", "Samsun", "Şanlıurfa", "Siirt", "Sinop",
+    "Şırnak", "Sivas", "Tekirdağ", "Tokat", "Trabzon", "Tunceli", "Uşak", "Van", "Yalova", "Yozgat", "Zonguldak"
+];
+
+const SPECIAL_DATA = {
+    "İstanbul": [
+        new TarihiYer("Ayasofya-i Kebir", 4.9, "Bizans/Osmanlı"),
+        new Muze("Topkapı Sarayı Müzesi", 4.8, 500),
+        new Restoran("Mikla Restaurant", 4.7, "Yeni Anadolu"),
+        new Restoran("Hafız Mustafa 1864", 4.6, "Tatlı/Geleneksel"),
+        new TarihiYer("Galata Kulesi", 4.4, "Ceneviz"),
+        new Muze("Yerebatan Sarnıcı", 4.7, 450),
+        new Restoran("Nusr-Et Steakhouse", 4.5, "Et/Steak"),
+        new Muze("İstanbul Modern", 4.6, 250),
+        new TarihiYer("Sultanahmet Camii", 4.8, "Osmanlı"),
+        new Muze("Rahmi M. Koç Müzesi", 4.7, 150),
+        new Restoran("Çiya Sofrası", 4.6, "Yöresel Anadolu"),
+        new TarihiYer("Rumeli Hisarı", 4.5, "Osmanlı"),
+        new Muze("Dolmabahçe Sarayı", 4.8, 450),
+        new Restoran("Pandeli", 4.4, "Klasik Türk"),
+        new TarihiYer("Kız Kulesi", 4.7, "Bizans/Osmanlı"),
+        new Muze("Arkeoloji Müzeleri", 4.9, 200),
+        new Restoran("Ulus 29", 4.6, "Modern/Manzara"),
+        new TarihiYer("Kapalıçarşı", 4.8, "Osmanlı"),
+        new Muze("Pera Müzesi", 4.5, 100),
+        new Restoran("Karaköy Güllüoğlu", 4.9, "Baklava")
+    ],
+    "Ankara": [
+        new TarihiYer("Anıtkabir", 5.0, "Cumhuriyet"),
+        new Muze("Anadolu Medeniyetleri", 4.8, 200),
+        new Restoran("Trilye Restoran", 4.6, "Deniz Ürünleri"),
+        new TarihiYer("Ankara Kalesi", 4.3, "Roma/Osmanlı"),
+        new Muze("Erimtan Müzesi", 4.5, 120),
+        new Restoran("Nusr-Et Ankara", 4.5, "Steak"),
+        new Muze("Resim ve Heykel Müzesi", 4.6, 100),
+        new TarihiYer("Hacı Bayram Camii", 4.7, "Selçuklu/Osmanlı"),
+        new TarihiYer("Roma Hamamı", 4.2, "Roma"),
+        new Muze("MTA Doğa Tarihi Müzesi", 4.8, 0),
+        new Restoran("Göksu Lokantası", 4.4, "Türk Mutfağı"),
+        new Muze("Kurtuluş Savaşı Müzesi", 4.9, 50),
+        new TarihiYer("Augustus Tapınağı", 4.1, "Roma"),
+        new Restoran("Düveroğlu Kebap", 4.7, "Gaziantep Mutfağı"),
+        new Muze("Satranç Müzesi", 4.5, 60),
+        new TarihiYer("Kocatepe Camii", 4.6, "Modern"),
+        new Restoran("Aspava Gülçimen", 4.8, "Ankara Klasiği"),
+        new Muze("Hava Kuvvetleri Müzesi", 4.4, 40)
+    ]
+};
+
+// Synthetic Discovery Engine Constants
+const SYNTHETIC_ADJECTIVES = ["Antik", "Tarihi", "Meşhur", "Modern", "Yöresel", "Has", "Öz", "Eski", "Yeni", "Büyük", "Gizli", "Parlak", "Şık", "Geleneksel", "Zengin", "Huzurlu", "Canlı", "Mistik", "Efsanevi", "Kutsal"];
+const SYNTHETIC_NOUNS = ["Konak", "Soli", "Çarşı", "Han", "Hamam", "Meydan", "Bahçe", "Tepe", "Vadi", "Köprü", "Çeşme", "Külliye", "Kervansaray", "Zirve", "Liman", "Kıyı", "Pazar", "Sokak", "Kule", "Park"];
+const SYNTHETIC_CUISINES = ["Yöresel Tatlar", "Osmanlı Mutfağı", "Deniz Ürünleri", "Kebap ve Izgara", "Ev Yemekleri", "Saray Mutfağı", "Modern Türk", "Hamur İşleri", "Tatlı Dünyası", "Dünya Mutfağı"];
+const SYNTHETIC_PERIODS = ["Roma", "Selçuklu", "Osmanlı", "Bizans", "Cumhuriyet", "Antik Yunan", "Hitit", "Frig"];
+
+class TravelGuide {
+    constructor() {
+        this.currentCity = "İstanbul";
+        this.currentCategory = "all";
+        this.searchTerm = "";
+        this.db = {};
+        this.init();
+    }
+
+    init() {
+        CITIES_LIST.forEach(city => {
+            const data = [];
+            
+            // 1. Add Special Hand-Curated Data
+            if (SPECIAL_DATA[city]) {
+                data.push(...SPECIAL_DATA[city]);
+            }
+
+            // 2. Fill with Synthetic Discovery Engine until at least 25 items
+            const targetCount = 25;
+            while (data.length < targetCount) {
+                const rand = Math.random();
+                const adj = SYNTHETIC_ADJECTIVES[Math.floor(Math.random() * SYNTHETIC_ADJECTIVES.length)];
+                const noun = SYNTHETIC_NOUNS[Math.floor(Math.random() * SYNTHETIC_NOUNS.length)];
+                const puan = (4.0 + Math.random() * 1.0).toFixed(1);
+
+                if (rand < 0.4) {
+                    data.push(new TarihiYer(`${adj} ${city} ${noun}`, puan, SYNTHETIC_PERIODS[Math.floor(Math.random() * SYNTHETIC_PERIODS.length)]));
+                } else if (rand < 0.7) {
+                    data.push(new Muze(`${city} ${adj} ${noun} Müzesi`, puan, Math.floor(Math.random() * 200)));
+                } else {
+                    data.push(new Restoran(`${adj} ${city} ${noun} Sofrası`, puan, SYNTHETIC_CUISINES[Math.floor(Math.random() * SYNTHETIC_CUISINES.length)]));
+                }
+            }
+            
+            this.db[city] = data;
+        });
+        
+        this.renderPills();
+        this.setupEvents();
+        this.renderCards();
+    }
+
+    setupEvents() {
+        document.getElementById('citySearch').oninput = (e) => {
+            this.searchTerm = e.target.value;
+            this.renderPills();
+        };
+
+        document.querySelectorAll('.cat-tab').forEach(btn => {
+            btn.onclick = () => {
+                document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.currentCategory = btn.dataset.category;
+                this.renderCards();
+            };
+        });
+    }
+
+    renderPills() {
+        const container = document.getElementById('citySelector');
+        container.innerHTML = "";
+        const filtered = CITIES_LIST.filter(c => c.toLowerCase().includes(this.searchTerm.toLowerCase()));
+        
+        filtered.forEach(city => {
+            const btn = document.createElement('div');
+            btn.className = `city-pill ${city === this.currentCity ? 'active' : ''}`;
+            btn.textContent = city;
+            btn.onclick = () => {
+                this.currentCity = city;
+                this.renderPills();
+                this.renderCards();
+            };
+            container.appendChild(btn);
+        });
+    }
+
+    renderCards() {
+        const recGrid = document.getElementById('recommendedGrid');
+        const othGrid = document.getElementById('othersGrid');
+        recGrid.innerHTML = othGrid.innerHTML = "";
+
+        const data = this.db[this.currentCity] || [];
+        
+        const renderList = (items, targetGrid) => {
+            items.forEach((loc, index) => {
+                const div = document.createElement('div');
+                div.innerHTML = loc.getHTML();
+                const card = div.firstElementChild;
+                card.style.animationDelay = `${index * 0.05}s`;
+                targetGrid.appendChild(card);
+            });
+        };
+
+        const filterByType = (items, category) => {
+            if (category === 'Tarihi Yer') return items.filter(loc => loc instanceof TarihiYer);
+            if (category === 'Müze') return items.filter(loc => loc instanceof Muze);
+            if (category === 'Restoran') return items.filter(loc => loc instanceof Restoran);
+            return items;
+        };
+
+        const filtered = filterByType(data, this.currentCategory);
+        
+        if (this.currentCategory === 'all') {
+            const groups = {
+                "Gastronomi 🍴": filtered.filter(loc => loc instanceof Restoran),
+                "Müze & Sanat 🖼️": filtered.filter(loc => loc instanceof Muze),
+                "Antik / Tarihi 🏛️": filtered.filter(loc => loc instanceof TarihiYer)
+            };
+
+            Object.entries(groups).forEach(([name, items]) => {
+                const recItems = items.filter(i => i.getPuan() >= 4.7);
+                const othItems = items.filter(i => i.getPuan() < 4.7);
+
+                if (recItems.length > 0) {
+                    const h = document.createElement('h3'); h.className = "group-header"; h.textContent = name;
+                    recGrid.appendChild(h);
+                    renderList(recItems, recGrid);
+                }
+                if (othItems.length > 0) {
+                    const h = document.createElement('h3'); h.className = "group-header"; h.textContent = name;
+                    othGrid.appendChild(h);
+                    renderList(othItems, othGrid);
+                }
+            });
+        } else {
+            const recItems = filtered.filter(i => i.getPuan() >= 4.7);
+            const othItems = filtered.filter(i => i.getPuan() < 4.7);
+            renderList(recItems, recGrid);
+            renderList(othItems, othGrid);
+        }
+
+        if (!recGrid.children.length) recGrid.innerHTML = "<p class='empty-msg'>Popüler öneriler yükleniyor...</p>";
+        if (!othGrid.children.length) othGrid.innerHTML = "<p class='empty-msg'>Keşfedilecek daha çok yer var!</p>";
+    }
+}
+
+window.onload = () => new TravelGuide();
+    </script>
+</body>
+</html>
