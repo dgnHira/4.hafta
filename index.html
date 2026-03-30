@@ -3,11 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hiranur Doğan - Proje Portalı</title>
+    <title>Hiranur Doğan - Gezi Portfolyosu</title>
     <style>
         /* Genel Arka Plan ve Yazı Tipleri */
         body {
-            background-color: #0b0118; /* Koyu mor/siyah */
+            /* Arka plana Türkiye'den canlı bir görsel ekliyoruz (örn: Kapadokya gün batımı) */
+            /* Kendi görselini kullanmak istersen buradaki URL'yi değiştirebilirsin */
+            background-image: url('https://images.unsplash.com/photo-1549221156-f4460515152a?q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Arka plan sabit kalsın */
+            
             color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -16,7 +22,25 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            overflow-x: hidden;
+            
+            /* İçeriğin okunabilmesi için üzerine koyu bir katman ekliyoruz */
+            position: relative;
+        }
+
+        /* Arka plan katmanı */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background-color: rgba(0, 0, 0, 0.4); /* Koyu katman */
+            z-index: 1;
+        }
+
+        /* Tüm içeriği bu katmanın üzerine alıyoruz */
+        .content-container {
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
         }
 
         /* Işıltılı Profil Resmi */
@@ -24,17 +48,17 @@
             width: 160px;
             height: 160px;
             border-radius: 50%;
-            border: 4px solid #7b61ff;
+            border: 4px solid #fff; /* Beyaz çerçeve */
             object-fit: cover;
             margin-bottom: 20px;
-            box-shadow: 0 0 30px rgba(123, 97, 255, 0.7); /* Mor parlama */
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.6); /* Işıltı */
         }
 
         /* Simli/Gradyan Başlık */
         h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin: 0;
-            background: linear-gradient(90deg, #a0feff, #e33fa1, #a0feff);
+            background: linear-gradient(90deg, #ff9a9e, #fad0c4, #ff9a9e);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -43,63 +67,67 @@
         }
 
         .tagline {
-            color: #7b61ff;
+            color: #ff9a9e;
             letter-spacing: 4px;
-            font-size: 0.9rem;
+            font-size: 1rem;
             margin-bottom: 10px;
             font-weight: bold;
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            color: #b0b0b0;
-            margin-bottom: 40px;
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 50px;
+            font-weight: 500;
         }
 
-        /* HAREKETLİ SİMLİ BUTON */
+        /* HAREKETLİ CANLI BUTONLAR (Gezi Rehberi) */
         .btn-main {
-            background: linear-gradient(90deg, #7b61ff, #e33fa1, #7b61ff);
+            background: linear-gradient(90deg, #ff9a9e, #fad0c4, #ff9a9e);
             background-size: 200% auto;
-            color: white;
+            color: #5d4037 !important; /* Koyu kahverengi yazı */
             padding: 18px 50px;
             border-radius: 40px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 0 20px rgba(227, 63, 161, 0.5);
+            font-size: 1.3rem;
+            box-shadow: 0 0 20px rgba(255, 154, 158, 0.6);
             transition: 0.4s;
             animation: glitter 3s linear infinite;
             border: none;
             cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-block;
         }
 
         .btn-main:hover {
             transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 0 40px rgba(227, 63, 161, 0.9);
+            box-shadow: 0 0 40px rgba(255, 154, 158, 1);
         }
 
-        /* Alt Linkler (Küçük Butonlar) */
+        /* Alt Linkler (Grafikler & Veriler) */
         .links-container {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .link-item {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.2); /* Yarı saydam beyaz */
             padding: 12px 25px;
             border-radius: 25px;
             color: white;
             text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             transition: 0.3s;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 1rem;
         }
 
         .link-item:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #7b61ff;
-            box-shadow: 0 0 15px rgba(123, 97, 255, 0.4);
+            background: rgba(255, 255, 255, 0.4);
+            border-color: #fff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
         }
 
         /* Animasyonlar */
@@ -115,18 +143,20 @@
 </head>
 <body>
 
-    <img src="profil.jpeg" alt="Hiranur Doğan" class="profile-img">
+    <div class="content-container">
+        <img src="profil.jpeg" alt="Hiranur Doğan" class="profile-img">
 
-    <div class="tagline">✦ HİRANUR DOĞAN ✦</div>
+        <div class="tagline">✦ TÜRKİYE GEZİ PORTFOLYOSU ✦</div>
 
-    <h1>VBA-GBT</h1>
-    <p class="subtitle">İnteraktif araçlar, görsel araştırmalar & deneyimler</p>
+        <h1>HİRANUR DOĞAN</h1>
+        <p class="subtitle">Şehirler, Tarih, Müzeler ve Lezzetler Durağı</p>
 
-    <a href="gezi.rehberi.html" class="btn-main">Renk Dünyasına Gir →</a>
+        <a href="gezi.rehberi.html" class="btn-main">Gezi Rehberi Uygulaması →</a>
 
-    <div class="links-container">
-        <a href="data.csv" class="link-item">📂 Veri Seti (CSV)</a>
-        <a href="scatter_plot.png" class="link-item">📊 Grafik</a>
+        <div class="links-container">
+            <a href="data.csv" class="link-item">📂 Veri Seti (CSV)</a>
+            <a href="scatter_plot.png" class="link-item">📊 Grafikler</a>
+        </div>
     </div>
 
 </body>
