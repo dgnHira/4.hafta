@@ -3,139 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hiranur Doğan - Renkli Gezi Portalı</title>
+    <title>Hiranur Doğan - Portfolyo</title>
     <style>
-        /* GENEL AYARLAR VE ARKA PLAN KOLAJI */
-        body {
+        /* ARKA PLAN VE GENEL YAPI */
+        body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
             font-family: 'Poppins', sans-serif;
-            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             /* Türkiye Kolajı Arka Planı */
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
-                        url('https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=2000');
-            background-size: cover;
-            background-position: center;
-            overflow: hidden;
+            background: url('https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=2000') center/cover no-repeat;
         }
 
         /* CAM EFEKTİ PANEL (GLASSMORPHISM) */
-        .glass-panel {
+        .glass-box {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 30px;
-            padding: 40px;
+            border-radius: 40px;
+            padding: 50px;
             text-align: center;
-            width: 80%;
-            max-width: 800px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            width: 85%;
+            max-width: 750px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
             z-index: 10;
         }
 
-        /* IŞILTILI PROFİL RESMİ */
-        .profile-wrapper {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px;
-            padding: 5px;
-            background: linear-gradient(45deg, #00f2ff, #ff00ea, #fbff00);
+        /* PARLAYAN RENKLİ PROFİL ÇERÇEVESİ */
+        .profile-ring {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 30px;
+            padding: 6px;
+            background: linear-gradient(45deg, #00f2ff, #ff00ea, #fbff00, #00f2ff);
+            background-size: 400%;
             border-radius: 50%;
-            animation: rotateGlow 3s linear infinite;
+            animation: glowRotate 5s linear infinite;
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
         }
 
-        .profile-img {
+        .profile-ring img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #000;
+            border: 4px solid #111;
         }
 
-        /* CANLI BAŞLIKLAR */
+        /* NEON İSİM VE BAŞLIK */
         h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin: 0;
-            color: white;
-            text-shadow: 0 0 10px rgba(0,242,255,0.8);
-            font-weight: 800;
+            color: #00f2ff;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: -2px;
         }
 
         h1 span {
             color: #ff00ea;
-            text-shadow: 0 0 10px rgba(255,0,234,0.8);
         }
 
-        .subtitle {
-            color: #ddd;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
+        .desc {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            font-weight: 300;
         }
 
-        /* GEZİ REHBERİ BUTONU (ANA BUTON) */
+        /* SİMLİ ANA BUTON */
         .main-btn {
-            background: linear-gradient(90deg, #b8ffb8, #00d4ff, #b8ffb8);
-            background-size: 200% auto;
+            background: linear-gradient(90deg, #b8ffb8, #00d4ff, #ff00ea, #b8ffb8);
+            background-size: 300% auto;
             color: #000;
-            padding: 15px 40px;
-            border-radius: 15px;
+            padding: 20px 60px;
+            border-radius: 20px;
             text-decoration: none;
-            font-weight: 900;
+            font-weight: 800;
             font-size: 1.8rem;
             display: inline-block;
-            margin-bottom: 30px;
-            box-shadow: 0 0 20px #00d4ff;
-            animation: glitterMove 3s linear infinite;
-            border: 2px solid white;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
+            border: 2px solid #fff;
+            animation: shimmer 3s infinite;
+            transition: 0.3s;
         }
 
-        /* ALT LİNKLER (GRAFİK, DATA, CSV) */
-        .button-group {
+        .main-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 0, 234, 0.7);
+        }
+
+        /* ALT LİNKLER */
+        .bottom-links {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
-        .sub-btn {
-            padding: 10px 25px;
-            border-radius: 20px;
+        .sub-link {
+            padding: 12px 30px;
+            border-radius: 30px;
             text-decoration: none;
             color: white;
             font-weight: bold;
+            background: rgba(0, 0, 0, 0.6);
             border: 2px solid transparent;
-            background-clip: padding-box;
             transition: 0.3s;
-            background: rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .sub-btn.grafik { border-color: #ff00ea; box-shadow: 0 0 10px #ff00ea; }
-        .sub-btn.data { border-color: #00f2ff; box-shadow: 0 0 10px #00f2ff; }
-        .sub-btn.csv { border-color: #fbff00; box-shadow: 0 0 10px #fbff00; }
+        .sub-link.g { border-color: #ff00ea; box-shadow: 0 0 15px #ff00ea; }
+        .sub-link.d { border-color: #00f2ff; box-shadow: 0 0 15px #00f2ff; }
+        .sub-link.c { border-color: #fbff00; box-shadow: 0 0 15px #fbff00; }
 
-        .sub-btn:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1); }
+        .sub-link:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-5px); }
 
         /* ANİMASYONLAR */
-        @keyframes rotateGlow {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-        @keyframes glitterMove {
-            to { background-position: 200% center; }
+        @keyframes glowRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* SİMLİ FARE TAKİBİ */
-        #particle-canvas {
+        @keyframes shimmer {
+            to { background-position: 300% center; }
+        }
+
+        /* SİMLİ FARE EFEKTİ CANVAS */
+        #trail {
             position: fixed;
             top: 0; left: 0;
+            width: 100%; height: 100%;
             pointer-events: none;
             z-index: 100;
         }
@@ -143,62 +154,63 @@
 </head>
 <body>
 
-    <canvas id="particle-canvas"></canvas>
+    <canvas id="trail"></canvas>
 
-    <div class="glass-panel">
-        <div class="profile-wrapper">
-            <img src="profil.jpeg" alt="Hiranur" class="profile-img">
+    <div class="glass-box">
+        <div class="profile-ring">
+            <img src="profil.jpeg" alt="Hiranur Doğan">
         </div>
 
         <h1>HİRANUR <span>DOĞAN</span></h1>
-        <p class="subtitle">Türkiye'nin En Renkli Gezi Portalı, Grafikleri ve Verileri</p>
+        
+        <p class="desc">Türkiye'nin En Renkli Gezi Portalı, Grafikleri ve Verileri</p>
 
         <a href="gezi.rehberi.html" class="main-btn">GEZİ REHBERİ</a>
 
-        <div class="button-group">
-            <a href="scatter_plot.png" class="sub-btn grafik">📊 Grafikler</a>
-            <a href="sicaklik_hist.png" class="sub-btn data">📈 Data</a>
-            <a href="data.csv" class="sub-btn csv">📂 Veri Seti (CSV)</a>
+        <div class="bottom-links">
+            <a href="scatter_plot.png" class="sub-link g">📊 Grafikler</a>
+            <a href="sicaklik_hist.png" class="sub-link d">📈 Data</a>
+            <a href="data.csv" class="sub-link c">📂 Veri Seti (CSV)</a>
         </div>
     </div>
 
     <script>
         // SİMLİ FARE TAKİP SCRIPTİ
-        const canvas = document.getElementById('particle-canvas');
+        const canvas = document.getElementById('trail');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        let particles = [];
+        let dots = [];
 
         window.addEventListener('mousemove', (e) => {
             for(let i=0; i<8; i++) {
-                particles.push({
-                    x: e.x, y: e.y,
-                    size: Math.random() * 4 + 1,
-                    color: `hsl(${Math.random() * 360}, 100%, 70%)`,
-                    speedX: Math.random() * 2 - 1,
-                    speedY: Math.random() * 2 - 1,
-                    alpha: 1
+                dots.push({
+                    x: e.clientX,
+                    y: e.clientY,
+                    s: Math.random() * 3 + 1,
+                    c: `hsl(${Math.random() * 360}, 100%, 75%)`,
+                    vx: Math.random() * 2 - 1,
+                    vy: Math.random() * 2 - 1,
+                    a: 1
                 });
             }
         });
 
-        function animate() {
+        function draw() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for(let i = 0; i < particles.length; i++) {
-                let p = particles[i];
-                p.x += p.speedX; p.y += p.speedY;
-                p.alpha -= 0.015;
-                ctx.globalAlpha = p.alpha;
-                ctx.fillStyle = p.color;
+            dots.forEach((d, i) => {
+                d.x += d.vx; d.y += d.vy;
+                d.a -= 0.02;
+                ctx.globalAlpha = d.a;
+                ctx.fillStyle = d.c;
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.arc(d.x, d.y, d.s, 0, Math.PI * 2);
                 ctx.fill();
-                if(p.alpha <= 0) { particles.splice(i, 1); i--; }
-            }
-            requestAnimationFrame(animate);
+                if(d.a <= 0) dots.splice(i, 1);
+            });
+            requestAnimationFrame(draw);
         }
-        animate();
+        draw();
     </script>
 </body>
 </html>
