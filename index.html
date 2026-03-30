@@ -4,49 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hiranur Doğan - Portfolyo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* ARKA PLAN VE GENEL YAPI */
+        /* GENEL AYARLAR VE DİNAMİK ARKA PLAN */
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
             overflow: hidden;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Türkiye Kolajı Arka Planı */
-            background: url('https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=2000') center/cover no-repeat;
+            background: #0f0c29; /* Koyu modern bir zemin */
         }
 
-        /* CAM EFEKTİ PANEL (GLASSMORPHISM) */
+        /* ARKA PLANDAKİ GARİP VE RENKLİ ŞEKİLLER */
+        .shapes {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            filter: blur(50px);
+            opacity: 0.6;
+            animation: move 20s infinite alternate;
+        }
+
+        /* Farklı Renkli ve Garip Şekiller */
+        .s1 { width: 400px; height: 400px; background: #ff00ea; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; top: -10%; left: -10%; }
+        .s2 { width: 500px; height: 500px; background: #00f2ff; border-radius: 50%; bottom: -20%; right: -10%; animation-duration: 25s; }
+        .s3 { width: 350px; height: 350px; background: #fbff00; border-radius: 40%; top: 40%; left: 30%; animation-duration: 15s; }
+
+        @keyframes move {
+            from { transform: translate(0, 0) rotate(0deg); }
+            to { transform: translate(100px, 100px) rotate(360deg); }
+        }
+
+        /* CAM PANEL */
         .glass-box {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 40px;
-            padding: 50px;
+            padding: 60px;
             text-align: center;
-            width: 85%;
-            max-width: 750px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            position: relative;
+            width: 80%;
+            max-width: 700px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
             z-index: 10;
         }
 
-        /* PARLAYAN RENKLİ PROFİL ÇERÇEVESİ */
+        /* MODERN PROFİL ÇERÇEVESİ */
         .profile-ring {
             width: 140px;
             height: 140px;
             margin: 0 auto 30px;
-            padding: 6px;
-            background: linear-gradient(45deg, #00f2ff, #ff00ea, #fbff00, #00f2ff);
-            background-size: 400%;
+            padding: 5px;
+            background: linear-gradient(45deg, #00f2ff, #ff00ea, #fbff00);
             border-radius: 50%;
-            animation: glowRotate 5s linear infinite;
-            box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(255, 0, 234, 0.4);
         }
 
         .profile-ring img {
@@ -54,17 +79,17 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #111;
+            border: 4px solid #000;
         }
 
-        /* NEON İSİM VE BAŞLIK */
+        /* DÜZ VE NET YAZILAR */
         h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin: 0;
-            color: #00f2ff;
-            text-transform: uppercase;
+            color: white;
             font-weight: 900;
-            letter-spacing: -2px;
+            letter-spacing: -1px;
+            text-transform: uppercase;
         }
 
         h1 span {
@@ -72,81 +97,59 @@
         }
 
         .desc {
-            color: #fff;
+            color: #ccc;
             font-size: 1.1rem;
             margin-top: 10px;
             margin-bottom: 40px;
-            opacity: 0.9;
-            font-weight: 300;
+            font-weight: 400;
         }
 
-        /* SİMLİ ANA BUTON */
-        .main-btn {
+        /* SİMLİ VE MODERN GEZİ REHBERİ BUTONU */
+        .btn-main {
             background: linear-gradient(90deg, #b8ffb8, #00d4ff, #ff00ea, #b8ffb8);
-            background-size: 300% auto;
+            background-size: 200% auto;
             color: #000;
-            padding: 20px 60px;
-            border-radius: 20px;
+            padding: 18px 50px;
+            border-radius: 15px;
             text-decoration: none;
             font-weight: 800;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             display: inline-block;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
+            margin-bottom: 35px;
             border: 2px solid #fff;
-            animation: shimmer 3s infinite;
+            animation: shine 3s linear infinite;
             transition: 0.3s;
         }
 
-        .main-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(255, 0, 234, 0.7);
-        }
+        .btn-main:hover { transform: scale(1.05); box-shadow: 0 0 30px #00d4ff; }
 
-        /* ALT LİNKLER */
-        .bottom-links {
+        /* ALT BUTONLAR */
+        .btn-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
-        .sub-link {
-            padding: 12px 30px;
-            border-radius: 30px;
+        .btn-sub {
+            padding: 12px 25px;
+            border-radius: 12px;
             text-decoration: none;
             color: white;
-            font-weight: bold;
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid transparent;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
-        .sub-link.g { border-color: #ff00ea; box-shadow: 0 0 15px #ff00ea; }
-        .sub-link.d { border-color: #00f2ff; box-shadow: 0 0 15px #00f2ff; }
-        .sub-link.c { border-color: #fbff00; box-shadow: 0 0 15px #fbff00; }
+        .btn-sub:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-3px); }
 
-        .sub-link:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-5px); }
+        @keyframes shine { to { background-position: 200% center; } }
 
-        /* ANİMASYONLAR */
-        @keyframes glowRotate {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes shimmer {
-            to { background-position: 300% center; }
-        }
-
-        /* SİMLİ FARE EFEKTİ CANVAS */
+        /* SİMLİ FARE TAKİBİ */
         #trail {
             position: fixed;
             top: 0; left: 0;
-            width: 100%; height: 100%;
             pointer-events: none;
             z-index: 100;
         }
@@ -154,63 +157,62 @@
 </head>
 <body>
 
+    <div class="shapes">
+        <div class="shape s1"></div>
+        <div class="shape s2"></div>
+        <div class="shape s3"></div>
+    </div>
+
     <canvas id="trail"></canvas>
 
     <div class="glass-box">
         <div class="profile-ring">
-            <img src="profil.jpeg" alt="Hiranur Doğan">
+            <img src="profil.jpeg" alt="Hiranur">
         </div>
 
         <h1>HİRANUR <span>DOĞAN</span></h1>
-        
-        <p class="desc">Türkiye'nin En Renkli Gezi Portalı, Grafikleri ve Verileri</p>
+        <p class="desc">Görsel Araştırmalar, Veri Analizleri ve Gezi Deneyimleri</p>
 
-        <a href="gezi.rehberi.html" class="main-btn">GEZİ REHBERİ</a>
+        <a href="gezi.rehberi.html" class="btn-main">GEZİ REHBERİ</a>
 
-        <div class="bottom-links">
-            <a href="scatter_plot.png" class="sub-link g">📊 Grafikler</a>
-            <a href="sicaklik_hist.png" class="sub-link d">📈 Data</a>
-            <a href="data.csv" class="sub-link c">📂 Veri Seti (CSV)</a>
+        <div class="btn-container">
+            <a href="scatter_plot.png" class="btn-sub">📊 Grafikler</a>
+            <a href="sicaklik_hist.png" class="btn-sub">📈 Grafik 2</a>
+            <a href="data.csv" class="btn-sub">📂 Veri Seti</a>
         </div>
     </div>
 
     <script>
-        // SİMLİ FARE TAKİP SCRIPTİ
         const canvas = document.getElementById('trail');
         const ctx = canvas.getContext('2d');
-        let dots = [];
+        let points = [];
 
         window.addEventListener('mousemove', (e) => {
-            for(let i=0; i<8; i++) {
-                dots.push({
-                    x: e.clientX,
-                    y: e.clientY,
+            for(let i=0; i<6; i++) {
+                points.push({
+                    x: e.clientX, y: e.clientY,
                     s: Math.random() * 3 + 1,
-                    c: `hsl(${Math.random() * 360}, 100%, 75%)`,
-                    vx: Math.random() * 2 - 1,
-                    vy: Math.random() * 2 - 1,
+                    c: `hsl(${Math.random() * 360}, 100%, 70%)`,
+                    vx: Math.random() * 2 - 1, vy: Math.random() * 2 - 1,
                     a: 1
                 });
             }
         });
 
-        function draw() {
+        function animate() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            dots.forEach((d, i) => {
-                d.x += d.vx; d.y += d.vy;
-                d.a -= 0.02;
-                ctx.globalAlpha = d.a;
-                ctx.fillStyle = d.c;
-                ctx.beginPath();
-                ctx.arc(d.x, d.y, d.s, 0, Math.PI * 2);
-                ctx.fill();
-                if(d.a <= 0) dots.splice(i, 1);
+            points.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy; p.a -= 0.02;
+                ctx.globalAlpha = p.a;
+                ctx.fillStyle = p.c;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, Math.PI * 2); ctx.fill();
+                if(p.a <= 0) points.splice(i, 1);
             });
-            requestAnimationFrame(draw);
+            requestAnimationFrame(animate);
         }
-        draw();
+        animate();
     </script>
 </body>
 </html>
